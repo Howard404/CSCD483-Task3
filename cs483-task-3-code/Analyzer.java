@@ -25,7 +25,11 @@ public class Analyzer {
       private double prev_x;
       private double prev_y;
       public double _velocity;
+      public double prev_velocity;
       public double[] _velocity_set;
+      public int _velocity_sum;
+      public double _acceleration;
+      public double[] _acceleration_set;
       // Add velocity and acceleration later
 
       // Entry constructor
@@ -36,7 +40,11 @@ public class Analyzer {
          prev_y = y;
          _distance = 0.0;
          _velocity = 0.0;
-         _velocity_set = new double[3];
+         _velocity_set = new double[4];
+         _velocity_sum = 0;
+         prev_velocity = 0.0;
+         _acceleration = 0.0;
+         _acceleration_set = new double[4];
       }
 
       // Getter for Body ID
@@ -56,10 +64,15 @@ public class Analyzer {
       }
 
       public void setVelocity(double x, double y, double timeStep) {
-         double v_x = (prev_x - x) / timeStep;
-         double v_y = (prev_y - x) / timeStep;
+         // double v_x = (prev_x - x) / timeStep;
+         // double v_y = (prev_y - x) / timeStep;
 
-         _velocity = Math.sqrt(Math.pow(v_x, 2) + Math.pow(v_y, 2));
+         // _velocity = Math.sqrt(Math.pow(v_x, 2) + Math.pow(v_y, 2));
+
+         double deltaSpeed = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+
+         double v_x = (deltaSpeed / _distance) * (x - prev_x);
+         double v_y = (deltaSpeed / _distance) * (y - prev_y);
 
          if (_velocity < _velocity_set[0]) {
             _velocity_set[0] = _velocity; // Minimum Velocity
@@ -69,8 +82,27 @@ public class Analyzer {
             _velocity_set[1] = _velocity; // Maximum Velocity
          }
 
-         _velocity_set[2] = _velocity_set[0] + _velocity_set[1] / 2;
+         _velocity_sum++;
+
+         _velocity_set[2] = (_velocity_set[0] + _velocity_set[1]) / 2;
+
+         _velocity_set[3] = Math.sqrt(Math.pow(_velocity - _velocity_set[2], 2) / _velocity_sum);
       }
+
+      // public void setAcceleration() {
+      // _acceleration = _velocity - prev_velocity / _time;
+
+      // if (_acceleration < _acceleration_set[0]) {
+      // _acceleration_set[0] = _acceleration;
+      // }
+
+      // if (_acceleration > _acceleration_set[1]) {
+      // _acceleration_set[1] = _acceleration;
+      // }
+
+      // _acceleration_set[2] = (_acceleration_set[0] + _acceleration_set[1]) / 2;
+
+      // }
 
       public void print() {
          System.out.println("---------------");
@@ -80,7 +112,12 @@ public class Analyzer {
          System.out.println("Velocity: ");
          System.out.println("   Min: " + _velocity_set[0]);
          System.out.println("   Max: " + _velocity_set[1]);
-         System.out.println("   Avg: " + _velocity_set[2]);
+         System.out.println("   Avg: " + _velocity);
+         System.out.println("   STD: " + _velocity_set[3]);
+         System.out.println("Acceleration: ");
+         System.out.println("   Min: " + _acceleration_set[0]);
+         System.out.println("   Max: " + _acceleration_set[1]);
+         System.out.println("   Avg: " + _acceleration);
          System.out.println("---------------");
       }
    }
@@ -115,6 +152,7 @@ public class Analyzer {
             entries.get(i).setTime(time);
             entries.get(i).setDistance(x, y);
             entries.get(i).setVelocity(x, y, step);
+            // entries.get(i).setAcceleration();
             break;
          }
       }
