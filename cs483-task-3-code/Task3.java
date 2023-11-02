@@ -8,7 +8,7 @@ public class Task3 {
    // ---------------------------------------------------------------------------------------------------------------------------------------------------------
    // SELECT YOUR TEST AND ADJUST THE VIEWER HERE
    public static void main(final String[] arguments) {
-      String testDesignator = "3.A"; // get these from the task description
+      String testDesignator = "7"; // get these from the task description
 
       new Task3(testDesignator);
    }
