@@ -70,13 +70,9 @@ public class Analyzer {
          prev_y = y;
       }
 
-      public void setVelocity(double x, double y, double timeStep) {
+      public void setVelocity(double x, double y) {
 
-         if (timeStep <= 0) {
-            return;
-         }
-
-         _velocity = _distance / timeStep;
+         _velocity = total_distance / _time;
 
          _velocity_set[0] = Double.min(_velocity, _velocity_set[0]);
          _velocity_set[1] = Double.max(_velocity, _velocity_set[1]);
@@ -90,13 +86,9 @@ public class Analyzer {
          _velocity_set[3] = Math.sqrt(Math.pow(_velocity - _velocity_set[2], 2) / _velocity_entries);
       }
 
-      public void setAcceleration(double timeStep) {
+      public void setAcceleration() {
 
-         if (timeStep <= 0) {
-            return;
-         }
-
-         _acceleration = _velocity / timeStep;
+         _acceleration = _velocity / _time;
 
          _acceleration_set[0] = Double.min(_acceleration, _acceleration_set[0]);
          _acceleration_set[1] = Double.max(_acceleration, _acceleration_set[1]);
@@ -150,8 +142,8 @@ public class Analyzer {
          if (entries.get(i).getBodyId() == id) {
             entries.get(i).setTime(time);
             entries.get(i).setDistance(x, y);
-            entries.get(i).setVelocity(x, y, step);
-            entries.get(i).setAcceleration(step);
+            entries.get(i).setVelocity(x, y);
+            entries.get(i).setAcceleration();
             return;
          }
       }

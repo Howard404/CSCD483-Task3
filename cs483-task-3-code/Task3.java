@@ -8,7 +8,7 @@ public class Task3 {
    // ---------------------------------------------------------------------------------------------------------------------------------------------------------
    // SELECT YOUR TEST AND ADJUST THE VIEWER HERE
    public static void main(final String[] arguments) {
-      String testDesignator = "7"; // get these from the task description
+      String testDesignator = "5.B"; // get these from the task description
 
       new Task3(testDesignator);
    }
@@ -24,7 +24,7 @@ public class Task3 {
 
       double timeStep = 0.1; // time step in seconds; do not change
 
-      double runToTime = 50000; // how long to run in simulation seconds before terminating automatically;
+      double runToTime = 70000; // how long to run in simulation seconds before terminating automatically;
       // collisions terminate at any time; set as needed below
       // Double.MAX_VALUE: <-- if you forget
 
@@ -88,15 +88,16 @@ public class Task3 {
             Body bodyEarth = new Body("EARTH", 0, 0, 0, 0, 100000, false);
             Body bodyRocket = new Body("ROCKET", 0, 55000, 19, 0, 1000, false);
 
-            // add whatever you need
-
             launch(zoomFactor, frameDelay, timeStep, runToTime, analyzer, bodyEarth, bodyRocket);
 
             break;
          }
 
          case "3.B": {
-            // add whatever you need
+            Body bodyEarth = new Body("EARTH", 0, 0, 0, 0, 100000, false);
+            Body bodyRocket = new Body("ROCKET", 0, 55000, 19, 0, 1000, false);
+
+            launch(zoomFactor, frameDelay, timeStep, runToTime, analyzer, bodyEarth, bodyRocket);
 
             break;
          }
@@ -108,16 +109,17 @@ public class Task3 {
          }
 
          case "4": {
-            // add whatever you need
+            Body bodyEarth = new Body("EARTH", 0, 0, 0, 0, 100000, false);
+            Body bodyRocket = new Body("ROCKET", 0, 55000, 27, 0, 1000, false);
+
+            launch(zoomFactor, frameDelay, timeStep, runToTime, analyzer, bodyEarth, bodyRocket);
 
             break;
          }
 
          case "5.A": {
             Body bodyEarth = new Body("EARTH", 0, 0, 0, 0, 100000, true);
-            Body bodyRocket = new Body("ROCKET", 400000, 100000, 0, 0, 1000, true);
-
-            // add whatever you need
+            Body bodyRocket = new Body("ROCKET", 400000, 100000, -3, 3, 1000, true);
 
             launch(zoomFactor, frameDelay, timeStep, runToTime, analyzer, bodyEarth, bodyRocket);
 
@@ -125,7 +127,10 @@ public class Task3 {
          }
 
          case "5.B": {
-            // add whatever you need
+            Body bodyEarth = new Body("EARTH", 0, 0, 0, 0, 100000, true);
+            Body bodyRocket = new Body("ROCKET", 400000, 100000, -10, 3, 1000, true);
+
+            launch(zoomFactor, frameDelay, timeStep, runToTime, analyzer, bodyEarth, bodyRocket);
 
             break;
          }
